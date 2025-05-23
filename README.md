@@ -1,6 +1,6 @@
 # bento-code-challenge
 
-Technical challenge for the backend developer position at Bento (bento.ky).
+Technical challenge for the backend developer position at Bento ([bento.kyc](https://bento.kyc)).
 
 ## Backlog
 
@@ -9,24 +9,115 @@ Technical challenge for the backend developer position at Bento (bento.ky).
 - [x] Read the challenge instructions and analyze the requirements
 - [x] Create a new repository on GitHub to start tracking the progress of the challenge
 - [x] Start the backlog session in the README file to track the tasks that need to be done
-- [ ] Create the [checklist](#checklist) session to track what is done and what is missing
-- [ ] Define the technology stack to be used in the project comparing with the requirements at [job description](https://github.com/backend-br/vagas/issues/11910)
-- [ ] Create all the tasks in the backlog session
+- [x] Create the [checklist](#checklist) session to track what is done and what is missing
+- [x] Create all the TECH-X tasks in the backlog section
+- [x] Define the technology stack to be used in the project based on the challenge requirements and job description ([link](https://github.com/backend-br/vagas/issues/11910))
 
-### TASK-1: ~
+### TASK-1: Validation
+
+- [ ] Collect the Bearer Token from the Bento website
+  - [ ] Document how to retrieve the token (manual or script-based) (video/gif)
+  - [ ] Verify the token's life usage (valid/invalid/expired)
+- [ ] Use the token to fetch the user profile and UUID
+  - [ ] Verify the response structure
+  - [ ] Store the token and UUID as ANONYMOUS_USER_UUID.
+- [ ] Call Bento's `/delivery/fee` endpoint with required headers and payload
+  - [ ] Verify the request structure
+    - [ ] Extract and define the request fiels such as ("addressFrom", "addressTo" and "merchant")
+  - [ ] Verify the response structure
+    - [ ] It's not known yet!
+
+### TASK-2: API
+
+- [ ] Start the project based on the technology stack defined in the job description
+- [ ] Implement health check endpoint
+  - [ ] Check if the server is running
+  - [ ] Check if the database is connected
+- [ ] Implement authentication layer
+- [ ] Logging layer
+- [ ] Rate limit layer?
+- [ ] Implement /delivery/fee endpoint
+  - [ ] Accept input parameters
+    - [ ] It will be the same as the Bento API? Being a Gateway? Or will it be different?
+  - [ ] Call Bento API
+  - [ ] Extract response fields (originalFee, newFee, deliveryTime, distanceMeters and message)
+  - [ ] Transform data
+    - [ ] Convert fee to dollars and apply 13% margin
+  - [ ] Return structured response
+
+### TASK-3: Database
+
+- [ ] Set up a database
+- [ ] Adapt the API layer to use the database
+- [ ] Implement `/requests/last` endpoint
+  - [ ] Retrieve last 10 entries from database as an array
+  - [ ] Should receive pagination parameters (page, limit)?
+
+### TASK-4: Error Handling
+
+- [ ] Handle with expected and unexpected errors
+  - Invalid/missing/expired token
+  - API call failures
+  - Unexpected data
+  - Missing fields
+
+### TASK-5: Documentation
+
+- [ ] Write API documentation using Swagger/OpenAPI
+  - [ ] Document all endpoints
+  - [ ] Include request/response examples
+
+### TASK-6: Testing
+
+- [ ] Write unit tests for all endpoints
+  - [ ] Test valid and invalid inputs
+  - [ ] Test error handling
+- [ ] Error handling tests
+
+### TASK-7: Deployment
+
+- [ ] Dockerize
+- [ ] CI pipeline
+- [ ] CD pipeline
+- [ ] Deploy the project
+  - [ ] Personal VPS or Google environment?
+
+### TASK-8: Review
+
+- [ ] Ensure all tasks are completed
 
 ## Checklist
 
-This checklist is extracted from reading the challenge instructions and analyzing the requirements. It will be used to track what is done and what is missing in the project.
+This checklist is extracted from the challenge instructions and will track what is done and what is missing.
 
-- [ ] Collect the Bearer Token from the site
-- [ ] Collect the User UUID from the endpoint with the Bearer Token
-- [ ] ...
+- [ ] API Implementation: Correct integration with the Bento API and proper application of the margin.
+- [ ] Documentation: Clear and comprehensive Swagger documentation.
+- [ ] Error Handling: Robust error handling, including token validation and unexpected responses.
+- [ ] Code Quality: Clean, maintainable code.
+- [ ] Functionality: Properly storing data, returning the expected response, and having two clear endpoints.
+
+## Tech at job description
+
+This is the technology stack mentioned in the job description. It will be used as a reference to define the technology stack for this challenge.
+
+- TypeScript
+- Node.js
+- NestJS
+- Firebase (Firestore, functions, etc.)
+- Google Cloud Platform (GCP)
+- Cloud Run
+- BigQuery
+- Docker
+- Swagger/OpenAPI
 
 ## Developer log
 
-### 22/05/2025
+### 2025-05-22
 
-- Received the challenge from e-mail at 21:57 (Brazil time). Read the pdf instructions and started to analyze the requirements.
-- Created a new repository on GitHub and initialized it with a README file to track the progress of the challenge.
-- Started the [backlog](#backlog) and [checklist](#checklist) sessions to track the tasks that need to be done.
+- Received the challenge by email at 21:57 (Brazil time). Read the PDF instructions and analyzed the requirements.
+- Created a new repository on GitHub and initialized it with a README to track progress.
+- Started the [backlog](#backlog) and [checklist](#checklist) sections to break the work into small deliverables.
+
+### 2025-05-23
+
+- Finished the TASK-0: Planning the project with all the sections at README.md, comparing against the challenge instructions and defining the technology stack.
