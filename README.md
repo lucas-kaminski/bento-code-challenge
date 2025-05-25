@@ -19,6 +19,13 @@ The `develop` branch will be merged into the `main` branch when all tasks are co
 
 For the environment variables necessary to run the project, please refer to the `.env.template` file. Copy this file to `.env` and fill in the necessary values. To know how to retrieve the values, please refer to the file [TASK-1.md](TASK-1.md).
 
+## Dependencies
+
+This project uses the following dependencies:
+
+- `@nestjs/common`: Common NestJS utilities
+- `@nestjs/axios`: Axios integration for NestJS
+
 ## Backlog
 
 ### TASK-0: Planning the project
@@ -46,11 +53,10 @@ For the environment variables necessary to run the project, please refer to the 
 ### TASK-2: API
 
 - [x] Start the project based on the technology stack defined in the job description
-- [ ] Implement health check endpoint
-  - [ ] Check if the server is running
-  - [ ] Check if the database is connected
-- [ ] Implement authentication layer
+- [x] Implement health check endpoint
+  - [x] Check if the server is running
 - [ ] Logging layer
+- [ ] Implement authentication layer
 - [ ] Rate limit layer?
 - [ ] Implement /delivery/fee endpoint
   - [ ] Accept input parameters
@@ -65,6 +71,7 @@ For the environment variables necessary to run the project, please refer to the 
 
 - [ ] Set up a database
 - [ ] Adapt the API layer to use the database
+- [ ] Update health check endpoint to verify database connection
 - [ ] Implement `/requests/last` endpoint
   - [ ] Retrieve last 10 entries from database as an array
   - [ ] Should receive pagination parameters (page, limit)?
