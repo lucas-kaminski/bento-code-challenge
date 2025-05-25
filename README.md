@@ -25,6 +25,8 @@ This project uses the following dependencies:
 
 - `@nestjs/common`: Common NestJS utilities
 - `@nestjs/axios`: Axios integration for NestJS
+- `nestjs-pino`: Pino integration for NestJS
+- `pino-http`: HTTP logger for Pino
 
 ## Backlog
 
@@ -55,7 +57,7 @@ This project uses the following dependencies:
 - [x] Start the project based on the technology stack defined in the job description
 - [x] Implement health check endpoint
   - [x] Check if the server is running
-- [ ] Logging layer
+- [x] Logging layer
 - [ ] Implement authentication layer
 - [ ] Rate limit layer?
 - [ ] Implement /delivery/fee endpoint
