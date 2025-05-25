@@ -8,6 +8,10 @@ This project will use the `main` branch as the production branch and the `develo
 
 The `develop` branch will be merged into the `main` branch when all tasks are completed and the project is ready for production. The `main` branch will be used for deployment.
 
+## Environment variables
+
+For the environment variables necessary to run the project, please refer to the `.env.template` file. Copy this file to `.env` and fill in the necessary values. To know how to retrieve the values, please refer to the file [TASK-1.md](TASK-1.md).
+
 ## Backlog
 
 ### TASK-0: Planning the project
@@ -22,17 +26,15 @@ The `develop` branch will be merged into the `main` branch when all tasks are co
 
 ### TASK-1: Validation
 
-- [ ] Collect the Bearer Token from the Bento website
-  - [ ] Document how to retrieve the token (manual or script-based) (video/gif)
-  - [ ] Verify the token's life usage (valid/invalid/expired)
-- [ ] Use the token to fetch the user profile and UUID
-  - [ ] Verify the response structure
-  - [ ] Store the token and UUID as ANONYMOUS_USER_UUID.
-- [ ] Call Bento's `/delivery/fee` endpoint with required headers and payload
-  - [ ] Verify the request structure
-    - [ ] Extract and define the request fiels such as ("addressFrom", "addressTo" and "merchant")
-  - [ ] Verify the response structure
-    - [ ] It's not known yet!
+- [x] Collect the Bearer Token from the Bento website
+  - [x] Document how to retrieve the token (manual or script-based) (video/gif)
+  - [x] Verify the token's life usage (valid/invalid/expired) [jwt.io](https://jwt.io/)
+- [x] Use the token to fetch the user profile and UUID
+  - [x] Verify the response structure
+  - [x] Store the token and UUID as ANONYMOUS_USER_UUID.
+- [x] Call Bento's `/delivery/fee` endpoint with required headers and payload
+  - [x] Verify the request structure
+  - [x] Verify the response structure
 
 ### TASK-2: API
 
@@ -132,4 +134,5 @@ This is the technology stack mentioned in the job description. It will be used a
 ### 2025-05-25
 
 - Explained the branch strategy at [#branch-strategy](#branch-strategy) section and started the `develop` branch.
+- Finished the TASK-1 documentation with the steps to retrieve the Bearer Token and UUID.
 -
