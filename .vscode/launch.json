@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "Debug NestJS Backend",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/backend/src/main.ts",
+      "cwd": "${workspaceFolder}/backend",
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+      "env": {
+        "TS_NODE_PROJECT": "${workspaceFolder}/backend/tsconfig.json"
+      },
+      "outFiles": [
+        "${workspaceFolder}/backend/dist/**/*.js"
+      ],
+      "autoAttachChildProcesses": true,
+      "preLaunchTask": "yarn build (backend)"
+    }
+  ]
+}

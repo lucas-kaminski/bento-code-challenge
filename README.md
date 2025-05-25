@@ -23,10 +23,15 @@ For the environment variables necessary to run the project, please refer to the 
 
 This project uses the following dependencies:
 
-- `@nestjs/common`: Common NestJS utilities
-- `@nestjs/axios`: Axios integration for NestJS
-- `nestjs-pino`: Pino integration for NestJS
-- `pino-http`: HTTP logger for Pino
+- @nestjs/axios, axios: Para requisições HTTP à API externa do Bento.
+
+- nestjs-pino, pino, pino-http, pino-pretty: Logging estruturado e bonito.
+
+- @nestjs/config: Carregar variáveis de ambiente facilmente.
+
+- reflect-metadata, rxjs: Utilizados internamente pelo NestJS.
+
+- @nestjs/core, @nestjs/common, @nestjs/platform-express: Estrutura base do NestJS.
 
 ## Backlog
 
@@ -47,7 +52,7 @@ This project uses the following dependencies:
   - [x] Verify the token's life usage (valid/invalid/expired) [jwt.io](https://jwt.io/)
 - [x] Use the token to fetch the user profile and UUID
   - [x] Verify the response structure
-  - [x] Store the token and UUID as ANONYMOUS_USER_UUID.
+  - [x] Store the token and UUID as USER_UUID.
 - [x] Call Bento's `/delivery/fee` endpoint with required headers and payload
   - [x] Verify the request structure
   - [x] Verify the response structure
@@ -60,14 +65,14 @@ This project uses the following dependencies:
 - [x] Logging layer
 - [ ] Implement authentication layer
 - [ ] Rate limit layer?
-- [ ] Implement /delivery/fee endpoint
+- [x] Implement /delivery/fee endpoint
   - [ ] Accept input parameters
     - [ ] It will be the same as the Bento API? Being a Gateway? Or will it be different?
-  - [ ] Call Bento API
-  - [ ] Extract response fields (originalFee, newFee, deliveryTime, distanceMeters and message)
-  - [ ] Transform data
-    - [ ] Convert fee to dollars and apply 13% margin
-  - [ ] Return structured response
+  - [x] Call Bento API
+  - [x] Extract response fields (originalFee, newFee, deliveryTime, distanceMeters and message)
+  - [x] Transform data
+    - [x] Convert fee to dollars and apply 13% margin
+  - [x] Return structured response
 
 ### TASK-3: Database
 
@@ -151,4 +156,4 @@ This is the technology stack mentioned in the job description. It will be used a
 
 - Explained the branch strategy at [#branch-strategy](#branch-strategy) section and started the `develop` branch.
 - Finished the TASK-1 documentation with the steps to retrieve the Bearer Token and UUID.
-- Started the TASK-2, setting up the project with NestJS and TypeScript.
+- Started the TASK-2, setting up the project with NestJS and TypeScript and implemented many of the requirements, leaving the rest for after the database is set up.
