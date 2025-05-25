@@ -2,6 +2,13 @@
 
 Technical challenge for the backend developer position at Bento ([bento.kyc](https://bento.kyc)).
 
+## Used to develop this project
+
+- Node.js, in the development of project is used the version `v22.15.1`, to check the version of Node.js, run the command `node -v` in the terminal.
+- Yarn, installed globally with (`npm i -g yarn`)
+- NestJS, installed globally with (`npm i -g @nestjs/cli`)
+- NestJS starter project, created with the command `nest new backend` and used `yarn` as package manager.
+
 ## Branch strategy
 
 This project will use the `main` branch as the production branch and the `develop` branch as the development branch. All features will be developed in separate branches, which will be merged into the `develop` branch. Those branches will be named according to the task they are implementing. For example, the branch for TASK-1 will be named `TASK-1`.
@@ -38,7 +45,7 @@ For the environment variables necessary to run the project, please refer to the 
 
 ### TASK-2: API
 
-- [ ] Start the project based on the technology stack defined in the job description
+- [x] Start the project based on the technology stack defined in the job description
 - [ ] Implement health check endpoint
   - [ ] Check if the server is running
   - [ ] Check if the database is connected
@@ -135,4 +142,4 @@ This is the technology stack mentioned in the job description. It will be used a
 
 - Explained the branch strategy at [#branch-strategy](#branch-strategy) section and started the `develop` branch.
 - Finished the TASK-1 documentation with the steps to retrieve the Bearer Token and UUID.
--
+- Started the TASK-2, setting up the project with NestJS and TypeScript.
