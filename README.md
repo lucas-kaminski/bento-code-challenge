@@ -2,6 +2,12 @@
 
 Technical challenge for the backend developer position at Bento ([bento.kyc](https://bento.kyc)).
 
+## Branch strategy
+
+This project will use the `main` branch as the production branch and the `develop` branch as the development branch. All features will be developed in separate branches, which will be merged into the `develop` branch. Those branches will be named according to the task they are implementing. For example, the branch for TASK-1 will be named `TASK-1`.
+
+The `develop` branch will be merged into the `main` branch when all tasks are completed and the project is ready for production. The `main` branch will be used for deployment.
+
 ## Backlog
 
 ### TASK-0: Planning the project
@@ -12,6 +18,7 @@ Technical challenge for the backend developer position at Bento ([bento.kyc](htt
 - [x] Create the [checklist](#checklist) session to track what is done and what is missing
 - [x] Create all the TECH-X tasks in the backlog section
 - [x] Define the technology stack to be used in the project based on the challenge requirements and job description ([link](https://github.com/backend-br/vagas/issues/11910))
+- [x] Define the branch strategy to be used in the project
 
 ### TASK-1: Validation
 
@@ -121,3 +128,8 @@ This is the technology stack mentioned in the job description. It will be used a
 ### 2025-05-23
 
 - Finished the TASK-0: Planning the project with all the sections at README.md, comparing against the challenge instructions and defining the technology stack.
+
+### 2025-05-25
+
+- Explained the branch strategy at [#branch-strategy](#branch-strategy) section and started the `develop` branch.
+-
