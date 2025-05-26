@@ -6,6 +6,4 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3002:3002"
-    volumes:
-      - ./backend:/app
-    command: yarn start:dev
+    command: yarn start:prod
