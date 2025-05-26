@@ -4,8 +4,8 @@ import { HealthModule } from './health/health.module';
 import { LoggerModule } from 'nestjs-pino';
 import { DeliveryModule } from './delivery/delivery.module';
 import { RequestsModule } from './requests/requests.module';
-import { UserSessionTokenMiddleware } from './common/middleware/user-session-token.middleware';
-import { JwtValidationMiddleware } from './common/middleware/jwt-validation.middleware';
+import { UserSessionTokenMiddleware } from './middleware/user-session-token.middleware';
+import { JwtValidationMiddleware } from './middleware/jwt-validation.middleware';
 
 @Module({
   imports: [

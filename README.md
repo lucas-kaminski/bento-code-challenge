@@ -68,8 +68,6 @@ This project uses the following dependencies:
 - [x] Implement authentication layer
 - [ ] Rate limit layer?
 - [x] Implement /delivery/fee endpoint
-  - [ ] Accept input parameters
-    - [ ] It will be the same as the Bento API? Being a Gateway? Or will it be different?
   - [x] Call Bento API
   - [x] Extract response fields (originalFee, newFee, deliveryTime, distanceMeters and message)
   - [x] Transform data
@@ -83,15 +81,18 @@ This project uses the following dependencies:
 - [x] Update health check endpoint to verify database connection
 - [x] Implement `/requests/last` endpoint
   - [x] Retrieve last 10 entries from database as an array
-  - [ ] Should receive pagination parameters (page, limit)?
+  - [x] Should receive pagination parameters (page, limit)?
+    - [x] Receive the parameter `limit` to limit the number of entries returned
 
 ### TASK-4: Error Handling
 
-- [ ] Handle with expected and unexpected errors
+- [x] Handle with expected and unexpected errors
   - Invalid/missing/expired token
+    - Will return a 401 Unauthorized error
   - API call failures
-  - Unexpected data
-  - Missing fields
+    - Will return a 500 Internal Server Error with a message indicating where the error occurred
+  - Unexpected data or missing fields in the request
+    - Will return a 400 Bad Request error with a message indicating the error
 
 ### TASK-5: Documentation
 
@@ -168,4 +169,4 @@ This is the technology stack mentioned in the job description. It will be used a
 - Created the CD pipeline to deploy the project to a personal VPS using Docker and Docker Compose.
 - Configured Nginx and Certbot to serve the project with HTTPS and a custom domain [https://bento.lucas-kaminski.dev](https://bento.lucas-kaminski.dev).
 - Implemented the JWT authentication layer to validate the decoded content of the Bearer Token.
--
+- Created a global error handler to handle expected and unexpected errors, returning the appropriate HTTP status codes and messages for TASK-4.

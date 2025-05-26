@@ -23,27 +23,26 @@ export class BentoService {
             authorization: token,
             'content-type': 'application/json',
           },
+          validateStatus: () => true,
         }),
       );
+
       const data = response.data as {
         fee: number;
         deliveryTime: number;
         distanceMeters: number;
         message?: string;
       };
-
       if (
         typeof data.fee !== 'number' ||
         typeof data.deliveryTime !== 'number' ||
         typeof data.distanceMeters !== 'number'
       ) {
-        this.logger.error('Invalid Bento API response', { data });
         throw new HttpException(
           'Invalid Bento API response',
           HttpStatus.BAD_GATEWAY,
         );
       }
-
       return {
         fee: data.fee,
         deliveryTime: data.deliveryTime,
@@ -51,7 +50,6 @@ export class BentoService {
         message: data.message ?? null,
       };
     } catch (err: unknown) {
-      this.logger.error('Error calling Bento API', { err });
       const error = err as {
         response?: { status?: number };
         message?: unknown;
@@ -68,8 +66,9 @@ export class BentoService {
       }
       throw new HttpException(
         typeof error?.message === 'string'
-          ? error.message
-          : 'There was an error calling the Bento API and we could not get the delivery fee',
+          ? error.message +
+            '\nThere was an error calling the Bento API and we could not get the delivery fee'
+          : 'Unexpected error while calling the Bento API, please try again later',
         typeof error?.status === 'number'
           ? error.status
           : HttpStatus.BAD_GATEWAY,
