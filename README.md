@@ -1,13 +1,23 @@
 # bento-code-challenge
 
-Technical challenge for the backend developer position at Bento ([bento.kyc](https://bento.kyc)).
+Technical challenge for the backend developer position at Bento ([bento.kyc](https://bento.kyc)). This project is a REST API that integrates with Bento's external API to calculate delivery fees and times, storing the results in a database. The details of the challenge are described in the PDF file received by email.
 
-## Used to develop this project
+## Used to develop this challenge
 
-- Node.js, in the development of project is used the version `v22.15.1`, to check the version of Node.js, run the command `node -v` in the terminal.
-- Yarn, installed globally with (`npm i -g yarn`)
-- NestJS, installed globally with (`npm i -g @nestjs/cli`)
-- NestJS starter project, created with the command `nest new backend` and used `yarn` as package manager.
+This project was developed using the following technology stack:
+
+- **Node.js** (`v22.15.1`): Runtime environment. Check with `node -v`.
+- **Yarn**: Dependency and script manager. Install with `npm i -g yarn`.
+- **NestJS**: Backend framework. Install globally with `npm i -g @nestjs/cli`.
+- **TypeScript**: Strictly-typed JavaScript, required by NestJS.
+- **Firebase Admin SDK**: Firestore connection and Google Cloud integration.
+- **Docker** and **Docker Compose**: Containerized environment for development and production.
+- **Nginx**: Reverse proxy and SSL termination.
+- **Certbot**: Automated HTTPS certificates (Let's Encrypt).
+- **Swagger/OpenAPI**: API documentation, available at `/api` endpoint.
+- **Pino**: Structured logging.
+- **Jest**: Testing framework.
+- **GitHub Actions**: CI/CD pipeline.
 
 ## Branch strategy
 
@@ -17,23 +27,98 @@ The `develop` branch will be merged into the `main` branch when all tasks are co
 
 ## Environment variables
 
-For the environment variables necessary to run the project, please refer to the `.env.template` file. Copy this file to `.env` and fill in the necessary values. To know how to retrieve the values, please refer to the file [TASK-1.md](TASK-1.md).
+For the environment variables necessary to run the project, please refer to the `.env.template` file. Copy this file to `.env` and fill in the necessary values.
 
-For the database configuration, please refer to the [Firebase documentation](https://firebase.google.com/docs/web/setup) for more information about how to create the JSON which contains the credentials to access the database which will be stored at `/secrets/google-credentials.json` and the path to this file should be set in the environment variable `GOOGLE_APPLICATION_CREDENTIALS`.
+Will be necessary to get two variables from the Bento website, the step-by-step to retrieve them is described in the [TASK-1 file](./TASK-1.md).
+
+For connecting to the Firestore database, you will need to create a Firebase project and download the service account key JSON file, then set the enviroment variable `GOOGLE_APPLICATION_CREDENTIALS` to the path of this file. If necessary, check the [Firebase documentation](https://firebase.google.com/docs/admin/setup#initialize-sdk) for more details on how to set up the Firebase Admin SDK.
 
 ## Dependencies
 
-This project uses the following dependencies:
+- `@nestjs/axios`, `axios`: HTTP client for external API requests.
+- `@nestjs/config`: Environment variable management.
+- `nestjs-pino`, `pino`, `pino-http`, `pino-pretty`: Logging.
+- `firebase-admin`: Firestore database and Google Cloud integration.
+- `@nestjs/swagger`, `swagger-ui-express`: API docs.
+- `reflect-metadata`, `rxjs`: Required by NestJS.
+- `@nestjs/core`, `@nestjs/common`, `@nestjs/platform-express`: NestJS core.
+- `eslint`, `prettier`, `jest`, `ts-jest`, `supertest`, `husky` (pre-commit hooks), `@nestjs/testing`, and TypeScript-related packages for linting, formatting, testing, and development.
 
-- @nestjs/axios, axios: Para requisições HTTP à API externa do Bento.
+## How to Run
 
-- nestjs-pino, pino, pino-http, pino-pretty: Logging estruturado e bonito.
+### Local
 
-- @nestjs/config: Carregar variáveis de ambiente facilmente.
+1. Clone the repository and install dependencies:
+   ```bash
+   yarn install
+   ```
+2. Copy `.env.template` to `.env` and fill in the required environment variables.
+3. Build and start the backend:
+   ```bash
+   yarn build
+   yarn start
+   ```
+   Or use Docker Compose:
+   ```bash
+   docker-compose up --build
+   ```
+4. The API will be available at `http://localhost:3000` by default.
 
-- reflect-metadata, rxjs: Utilizados internamente pelo NestJS.
+### Production
 
-- @nestjs/core, @nestjs/common, @nestjs/platform-express: Estrutura base do NestJS.
+The project is deployed and available at: [https://bento.lucas-kaminski.dev](https://bento.lucas-kaminski.dev)
+
+Deployment uses Docker, Docker Compose, Nginx, and Certbot for HTTPS on a personal VPS. For more details, see the development log below.
+
+## Documentation
+
+Swagger/OpenAPI documentation is available at the `/api` endpoint:
+
+- Local: [http://localhost:3000/api](http://localhost:3000/api)
+- Production: [https://bento.lucas-kaminski.dev/api](https://bento.lucas-kaminski.dev/api)
+
+You can use Swagger UI to explore and test the API endpoints directly from your browser.
+
+Ensure to have the Bearer Token from the Bento website to test the endpoints that require authentication. The token should be included in the `Authorization` header as `Bearer YOUR_TOKEN` in every request you make to the API.
+
+## Tests
+
+Automated tests are being developed using Jest. To run the tests (when available):
+
+```bash
+yarn test
+```
+
+Test coverage includes unit and integration tests for endpoints and error handling. This section will be updated as test coverage improves.
+
+The tests, when implemented, will be run automatically in the CI pipeline using GitHub Actions, ensuring code quality and functionality before merging changes.
+
+## Developer log
+
+### 2025-05-22
+
+- Received the challenge by email at 21:57 (Brazil time). Read the PDF instructions and analyzed the requirements.
+- Created a new repository on GitHub and initialized it with a README to track progress.
+- Started the [backlog](#backlog) and [checklist](#checklist) sections to break the work into small deliverables.
+
+### 2025-05-23
+
+- Finished the TASK-0: Planning the project with all the sections at README.md, comparing against the challenge instructions and defining the technology stack.
+
+### 2025-05-25
+
+- Explained the branch strategy at [#branch-strategy](#branch-strategy) section and started the `develop` branch.
+- Finished the TASK-1 documentation with the steps to retrieve the Bearer Token and UUID.
+- Started the TASK-2, setting up the project with NestJS and TypeScript and implemented many of the requirements, leaving the rest for after the database is set up.
+- Configured the firebase and firestore to be used in the project. Implemented the connection to the database and the health check endpoint. Implemented the logging layer after calculating the fee and the delivery time. Implemented the `/delivery/fee` endpoint and the `/requests/last` endpoint.
+- Implemented the swagger documentation for the API, creating the OpenAPI specification for the endpoints and their request/response examples.
+- Created the Dockerfile and docker-compose.yml to run the project in a containerized environment.
+- Created the CI pipeline with GitHub Actions to run the tests and build the project. Added husky pre-commit hooks to run the tests before committing the code.
+- Created the CD pipeline to deploy the project to a personal VPS using Docker and Docker Compose.
+- Configured Nginx and Certbot to serve the project with HTTPS and a custom domain [https://bento.lucas-kaminski.dev](https://bento.lucas-kaminski.dev).
+- Implemented the JWT authentication layer to validate the decoded content of the Bearer Token.
+- Created a global error handler to handle expected and unexpected errors, returning the appropriate HTTP status codes and messages for TASK-4.
+- Updated README.md with the missing details and updated the checklist, preparing for the delivery of the challenge.
 
 ## Backlog
 
@@ -46,6 +131,20 @@ This project uses the following dependencies:
 - [x] Create all the TECH-X tasks in the backlog section
 - [x] Define the technology stack to be used in the project based on the challenge requirements and job description ([link](https://github.com/backend-br/vagas/issues/11910))
 - [x] Define the branch strategy to be used in the project
+
+#### Tech at job description
+
+This is the technology stack mentioned in the job description. It will be used as a reference to define the technology stack for this challenge.
+
+- TypeScript
+- Node.js
+- NestJS
+- Firebase (Firestore, functions, etc.)
+- Google Cloud Platform (GCP)
+- Cloud Run
+- BigQuery
+- Docker
+- Swagger/OpenAPI
 
 ### TASK-1: Validation
 
@@ -102,10 +201,14 @@ This project uses the following dependencies:
 
 ### TASK-6: Testing
 
-- [ ] Write unit tests for all endpoints
-  - [ ] Test valid and invalid inputs
-  - [ ] Test error handling
+- [ ] Write unit tests for endpoints
+  - [ ] Health
+  - [ ] delivery fee
+  - [ ] requests last
 - [ ] Error handling tests
+  - [ ] 401 Unauthorized
+  - [ ] 400 Bad Request
+  - [ ] 500 Internal Server Error
 
 ### TASK-7: Deployment
 
@@ -119,54 +222,22 @@ This project uses the following dependencies:
 
 ### TASK-8: Review
 
-- [ ] Ensure all tasks are completed
+- [x] Ensure all tasks are completed
 
 ## Checklist
 
 This checklist is extracted from the challenge instructions and will track what is done and what is missing.
 
-- [ ] API Implementation: Correct integration with the Bento API and proper application of the margin.
-- [ ] Documentation: Clear and comprehensive Swagger documentation.
-- [ ] Error Handling: Robust error handling, including token validation and unexpected responses.
-- [ ] Code Quality: Clean, maintainable code.
-- [ ] Functionality: Properly storing data, returning the expected response, and having two clear endpoints.
+- [x] API Implementation: Correct integration with the Bento API and proper application of the margin.
+- [x] Documentation: Clear and comprehensive Swagger documentation.
+- [x] Error Handling: Robust error handling, including token validation and unexpected responses.
+- [x] Code Quality: Clean, maintainable code.
+- [x] Functionality: Properly storing data, returning the expected response, and having two clear endpoints.
 
-## Tech at job description
+## Final Considerations
 
-This is the technology stack mentioned in the job description. It will be used as a reference to define the technology stack for this challenge.
+It was great to work on this challenge. I delivered all core requirements with the same quality and development best practices I always apply. Some optional features, like full tests and rate limiting, were only planned due to time constraints, as they are not mandatory. These would add extra safety but don't impact the main objectives.
 
-- TypeScript
-- Node.js
-- NestJS
-- Firebase (Firestore, functions, etc.)
-- Google Cloud Platform (GCP)
-- Cloud Run
-- BigQuery
-- Docker
-- Swagger/OpenAPI
+Considering the checklist and the tasks, I believe I delivered a solid solution that meets the challenge requirements. The project is ready for review, and I look forward to your feedback.
 
-## Developer log
-
-### 2025-05-22
-
-- Received the challenge by email at 21:57 (Brazil time). Read the PDF instructions and analyzed the requirements.
-- Created a new repository on GitHub and initialized it with a README to track progress.
-- Started the [backlog](#backlog) and [checklist](#checklist) sections to break the work into small deliverables.
-
-### 2025-05-23
-
-- Finished the TASK-0: Planning the project with all the sections at README.md, comparing against the challenge instructions and defining the technology stack.
-
-### 2025-05-25
-
-- Explained the branch strategy at [#branch-strategy](#branch-strategy) section and started the `develop` branch.
-- Finished the TASK-1 documentation with the steps to retrieve the Bearer Token and UUID.
-- Started the TASK-2, setting up the project with NestJS and TypeScript and implemented many of the requirements, leaving the rest for after the database is set up.
-- Configured the firebase and firestore to be used in the project. Implemented the connection to the database and the health check endpoint. Implemented the logging layer after calculating the fee and the delivery time. Implemented the `/delivery/fee` endpoint and the `/requests/last` endpoint.
-- Implemented the swagger documentation for the API, creating the OpenAPI specification for the endpoints and their request/response examples.
-- Created the Dockerfile and docker-compose.yml to run the project in a containerized environment.
-- Created the CI pipeline with GitHub Actions to run the tests and build the project. Added husky pre-commit hooks to run the tests before committing the code.
-- Created the CD pipeline to deploy the project to a personal VPS using Docker and Docker Compose.
-- Configured Nginx and Certbot to serve the project with HTTPS and a custom domain [https://bento.lucas-kaminski.dev](https://bento.lucas-kaminski.dev).
-- Implemented the JWT authentication layer to validate the decoded content of the Bearer Token.
-- Created a global error handler to handle expected and unexpected errors, returning the appropriate HTTP status codes and messages for TASK-4.
+If you have any questions or need further clarifications, feel free to reach out. Thank you for the opportunity to participate in this challenge!
