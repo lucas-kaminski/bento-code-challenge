@@ -8,12 +8,17 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
+  const { AllExceptionsFilter } = await import(
+    './filters/http-exception.filter'
+  );
+  app.useGlobalFilters(new AllExceptionsFilter());
+
   app.useLogger(app.get(Logger));
 
   const config = new DocumentBuilder()
     .setTitle('Bento Code Challenge API')
     .setDescription('Docs for Bento Code Challenge API')
-    .setVersion('1.0')
+    .setVersion('0.0.1')
     .addBearerAuth({
       type: 'http',
       scheme: 'bearer',
@@ -39,7 +44,13 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(process.env.PORT ?? 3000);
+  const port = process.env.PORT;
+
+  if (!port) {
+    throw new Error('PORT environment variable is not set');
+  }
+
+  await app.listen(port);
 }
 
 bootstrap().catch((err) => {

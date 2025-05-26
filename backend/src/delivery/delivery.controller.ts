@@ -20,7 +20,7 @@ import {
   DeliveryFeeResponseDto,
   DeliveryFeeResponseSwaggerDto,
 } from './dto/delivery-fee-response';
-import { RequestWithSessionToken } from '../common/middleware/user-session-token.middleware';
+import { RequestWithSessionToken } from '../middleware/user-session-token.middleware';
 
 @ApiTags('delivery')
 @ApiBearerAuth()
