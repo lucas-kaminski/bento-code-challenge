@@ -1,6 +1,8 @@
 # bento-code-challenge
 
-Technical challenge for the backend developer position at Bento ([bento.kyc](https://bento.kyc)). This project is a REST API that integrates with Bento's external API to calculate delivery fees and times, storing the results in a database. The details of the challenge are described in the PDF file received by email.
+Technical challenge for the backend developer position at Bento ([bento.ky](https://bento.ky)).
+
+This project is a REST API that integrates with Bento's external API to calculate delivery fees and times, storing the results in a database. The details of the challenge are described in the PDF file received by email.
 
 ## Used to develop this challenge
 
@@ -19,20 +21,6 @@ This project was developed using the following technology stack:
 - **Jest**: Testing framework.
 - **GitHub Actions**: CI/CD pipeline.
 
-## Branch strategy
-
-This project will use the `main` branch as the production branch and the `develop` branch as the development branch. All features will be developed in separate branches, which will be merged into the `develop` branch. Those branches will be named according to the task they are implementing. For example, the branch for TASK-1 will be named `TASK-1`.
-
-The `develop` branch will be merged into the `main` branch when all tasks are completed and the project is ready for production. The `main` branch will be used for deployment.
-
-## Environment variables
-
-For the environment variables necessary to run the project, please refer to the `.env.template` file. Copy this file to `.env` and fill in the necessary values.
-
-Will be necessary to get two variables from the Bento website, the step-by-step to retrieve them is described in the [TASK-1 file](./TASK-1.md).
-
-For connecting to the Firestore database, you will need to create a Firebase project and download the service account key JSON file, then set the enviroment variable `GOOGLE_APPLICATION_CREDENTIALS` to the path of this file. If necessary, check the [Firebase documentation](https://firebase.google.com/docs/admin/setup#initialize-sdk) for more details on how to set up the Firebase Admin SDK.
-
 ## Dependencies
 
 - `@nestjs/axios`, `axios`: HTTP client for external API requests.
@@ -44,31 +32,48 @@ For connecting to the Firestore database, you will need to create a Firebase pro
 - `@nestjs/core`, `@nestjs/common`, `@nestjs/platform-express`: NestJS core.
 - `eslint`, `prettier`, `jest`, `ts-jest`, `supertest`, `husky` (pre-commit hooks), `@nestjs/testing`, and TypeScript-related packages for linting, formatting, testing, and development.
 
+## Environment variables
+
+For the environment variables necessary to run the project, please refer to the `.env.template` file. Copy this file to `.env` and fill in the necessary values.
+
+Will be necessary to get two variables from the Bento website, the step-by-step to retrieve them is described in the [TASK-1 file](./TASK-1.md).
+
+For connecting to the Firestore database, you will need to create a Firebase project and download the service account key JSON file, then set the enviroment variable `GOOGLE_APPLICATION_CREDENTIALS` to the path of this file. If necessary, check the [Firebase documentation](https://firebase.google.com/docs/admin/setup#initialize-sdk) for more details on how to set up the Firebase Admin SDK.
+
 ## How to Run
 
 ### Local
 
 1. Clone the repository and install dependencies:
    ```bash
+   git clone https://github.com/lucas-kaminski/bento-code-challenge
+   cd bento-code-challenge
+   cd backend
    yarn install
    ```
 2. Copy `.env.template` to `.env` and fill in the required environment variables.
 3. Build and start the backend:
    ```bash
+   cd bento-code-challenge
+   cd backend
    yarn build
    yarn start
    ```
    Or use Docker Compose:
    ```bash
+   cd bento-code-challenge
    docker-compose up --build
    ```
-4. The API will be available at `http://localhost:3000` by default.
+4. The API will be available at `http://localhost:3000` by default. If you setted a different port in the `.env` file, use that port instead.
+5. Access the Swagger documentation at `http://localhost:3000/api` to explore the API endpoints.
 
 ### Production
 
 The project is deployed and available at: [https://bento.lucas-kaminski.dev](https://bento.lucas-kaminski.dev)
 
-Deployment uses Docker, Docker Compose, Nginx, and Certbot for HTTPS on a personal VPS. For more details, see the development log below.
+Deployment uses Docker, Docker Compose, Nginx, and Certbot for HTTPS on a personal VPS.
+
+For more details, see the development log below.
 
 ## Documentation
 
@@ -92,6 +97,16 @@ yarn test
 Test coverage includes unit and integration tests for endpoints and error handling. This section will be updated as test coverage improves.
 
 The tests, when implemented, will be run automatically in the CI pipeline using GitHub Actions, ensuring code quality and functionality before merging changes.
+
+## Branch strategy
+
+This project will use the `main` branch as the production branch and the `develop` branch as the development branch.
+
+All features will be developed in separate branches, which will be merged into the `develop` branch.
+
+Those branches will be named according to the task they are implementing. For example, the branch for TASK-1 will be named `TASK-1`.
+
+The `develop` branch will be merged into the `main` branch when all tasks are completed and the project is ready for production. The `main` branch will be used for deployment.
 
 ## Developer log
 
