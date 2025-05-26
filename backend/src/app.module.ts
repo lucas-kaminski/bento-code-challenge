@@ -6,10 +6,14 @@ import { HealthModule } from './health/health.module';
 import { LoggerModule } from 'nestjs-pino';
 import { DeliveryModule } from './delivery/delivery.module';
 
+import { RequestsModule } from './requests/requests.module';
+
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
     HealthModule,
+    DeliveryModule,
+    RequestsModule,
+    ConfigModule.forRoot({ isGlobal: true }),
     LoggerModule.forRoot({
       pinoHttp: {
         level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
@@ -44,7 +48,6 @@ import { DeliveryModule } from './delivery/delivery.module';
         },
       },
     }),
-    DeliveryModule,
   ],
 
   controllers: [AppController],

@@ -19,6 +19,8 @@ The `develop` branch will be merged into the `main` branch when all tasks are co
 
 For the environment variables necessary to run the project, please refer to the `.env.template` file. Copy this file to `.env` and fill in the necessary values. To know how to retrieve the values, please refer to the file [TASK-1.md](TASK-1.md).
 
+For the database configuration, please refer to the [Firebase documentation](https://firebase.google.com/docs/web/setup) for more information about how to create the JSON which contains the credentials to access the database which will be stored at `/secrets/google-credentials.json` and the path to this file should be set in the environment variable `GOOGLE_APPLICATION_CREDENTIALS`.
+
 ## Dependencies
 
 This project uses the following dependencies:
@@ -76,11 +78,11 @@ This project uses the following dependencies:
 
 ### TASK-3: Database
 
-- [ ] Set up a database
-- [ ] Adapt the API layer to use the database
-- [ ] Update health check endpoint to verify database connection
-- [ ] Implement `/requests/last` endpoint
-  - [ ] Retrieve last 10 entries from database as an array
+- [x] Set up a database
+- [x] Adapt the API layer to use the database
+- [x] Update health check endpoint to verify database connection
+- [x] Implement `/requests/last` endpoint
+  - [x] Retrieve last 10 entries from database as an array
   - [ ] Should receive pagination parameters (page, limit)?
 
 ### TASK-4: Error Handling
@@ -157,3 +159,4 @@ This is the technology stack mentioned in the job description. It will be used a
 - Explained the branch strategy at [#branch-strategy](#branch-strategy) section and started the `develop` branch.
 - Finished the TASK-1 documentation with the steps to retrieve the Bearer Token and UUID.
 - Started the TASK-2, setting up the project with NestJS and TypeScript and implemented many of the requirements, leaving the rest for after the database is set up.
+- Configured the firebase and firestore to be used in the project. Implemented the connection to the database and the health check endpoint. Implemented the logging layer after calculating the fee and the delivery time. Implemented the `/delivery/fee` endpoint and the `/requests/last` endpoint.

@@ -1,4 +1,11 @@
-import { Controller, HttpCode, HttpStatus, Get, Logger } from '@nestjs/common';
+import {
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Get,
+  Logger,
+  Headers,
+} from '@nestjs/common';
 import { DeliveryService } from './delivery.service';
 import { BentoFeePayloadDto } from '../bento/dto/bento-fee-payload';
 import { DeliveryFeeResponseDto } from './dto/delivery-fee-response';
@@ -11,8 +18,12 @@ export class DeliveryController {
 
   @Get('fee')
   @HttpCode(HttpStatus.OK)
-  async getDeliveryFee(): Promise<DeliveryFeeResponseDto> {
-    const token = 'Bearer ' + process.env.USER_SESSION_TOKEN;
+  async getDeliveryFee(
+    @Headers('user-agent') userAgent: string | undefined,
+  ): Promise<DeliveryFeeResponseDto> {
+    const token = process.env.USER_SESSION_TOKEN;
+    if (!token)
+      throw new Error('Missing USER_SESSION_TOKEN environment variable');
 
     if (!process.env.USER_UUID) {
       throw new Error('Missing USER_UUID environment variable');
@@ -39,6 +50,26 @@ export class DeliveryController {
       },
     };
 
-    return this.deliveryService.getDeliveryFeeWithMargin(payload, token);
+    const response = await this.deliveryService.getDeliveryFeeWithMargin(
+      payload,
+      token,
+    );
+
+    await this.deliveryService.storeRequest({
+      originalFee: response.originalFee,
+      newFee: response.newFee,
+      deliveryTime: response.deliveryTime,
+      distanceMeters: response.distanceMeters,
+      message: response.message,
+      userAgent: userAgent || 'unknown',
+      merchantId: payload.merchant.id,
+      userUuid: payload.user.uuid,
+      coordinates: {
+        lat: payload.addressFrom.coordinates.lat,
+        lng: payload.addressFrom.coordinates.lng,
+      },
+    });
+
+    return response;
   }
 }
