@@ -108,7 +108,7 @@ This project uses the following dependencies:
 
 ### TASK-7: Deployment
 
-- [ ] Dockerize
+- [x] Dockerize
 - [ ] CI pipeline
 - [ ] CD pipeline
 - [ ] Deploy the project
