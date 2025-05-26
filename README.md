@@ -2,6 +2,39 @@
 
 Technical challenge for the backend developer position at Bento ([bento.kyc](https://bento.kyc)).
 
+## Used to develop this project
+
+- Node.js, in the development of project is used the version `v22.15.1`, to check the version of Node.js, run the command `node -v` in the terminal.
+- Yarn, installed globally with (`npm i -g yarn`)
+- NestJS, installed globally with (`npm i -g @nestjs/cli`)
+- NestJS starter project, created with the command `nest new backend` and used `yarn` as package manager.
+
+## Branch strategy
+
+This project will use the `main` branch as the production branch and the `develop` branch as the development branch. All features will be developed in separate branches, which will be merged into the `develop` branch. Those branches will be named according to the task they are implementing. For example, the branch for TASK-1 will be named `TASK-1`.
+
+The `develop` branch will be merged into the `main` branch when all tasks are completed and the project is ready for production. The `main` branch will be used for deployment.
+
+## Environment variables
+
+For the environment variables necessary to run the project, please refer to the `.env.template` file. Copy this file to `.env` and fill in the necessary values. To know how to retrieve the values, please refer to the file [TASK-1.md](TASK-1.md).
+
+For the database configuration, please refer to the [Firebase documentation](https://firebase.google.com/docs/web/setup) for more information about how to create the JSON which contains the credentials to access the database which will be stored at `/secrets/google-credentials.json` and the path to this file should be set in the environment variable `GOOGLE_APPLICATION_CREDENTIALS`.
+
+## Dependencies
+
+This project uses the following dependencies:
+
+- @nestjs/axios, axios: Para requisições HTTP à API externa do Bento.
+
+- nestjs-pino, pino, pino-http, pino-pretty: Logging estruturado e bonito.
+
+- @nestjs/config: Carregar variáveis de ambiente facilmente.
+
+- reflect-metadata, rxjs: Utilizados internamente pelo NestJS.
+
+- @nestjs/core, @nestjs/common, @nestjs/platform-express: Estrutura base do NestJS.
+
 ## Backlog
 
 ### TASK-0: Planning the project
@@ -12,45 +45,44 @@ Technical challenge for the backend developer position at Bento ([bento.kyc](htt
 - [x] Create the [checklist](#checklist) session to track what is done and what is missing
 - [x] Create all the TECH-X tasks in the backlog section
 - [x] Define the technology stack to be used in the project based on the challenge requirements and job description ([link](https://github.com/backend-br/vagas/issues/11910))
+- [x] Define the branch strategy to be used in the project
 
 ### TASK-1: Validation
 
-- [ ] Collect the Bearer Token from the Bento website
-  - [ ] Document how to retrieve the token (manual or script-based) (video/gif)
-  - [ ] Verify the token's life usage (valid/invalid/expired)
-- [ ] Use the token to fetch the user profile and UUID
-  - [ ] Verify the response structure
-  - [ ] Store the token and UUID as ANONYMOUS_USER_UUID.
-- [ ] Call Bento's `/delivery/fee` endpoint with required headers and payload
-  - [ ] Verify the request structure
-    - [ ] Extract and define the request fiels such as ("addressFrom", "addressTo" and "merchant")
-  - [ ] Verify the response structure
-    - [ ] It's not known yet!
+- [x] Collect the Bearer Token from the Bento website
+  - [x] Document how to retrieve the token (manual or script-based) (video/gif)
+  - [x] Verify the token's life usage (valid/invalid/expired) [jwt.io](https://jwt.io/)
+- [x] Use the token to fetch the user profile and UUID
+  - [x] Verify the response structure
+  - [x] Store the token and UUID as USER_UUID.
+- [x] Call Bento's `/delivery/fee` endpoint with required headers and payload
+  - [x] Verify the request structure
+  - [x] Verify the response structure
 
 ### TASK-2: API
 
-- [ ] Start the project based on the technology stack defined in the job description
-- [ ] Implement health check endpoint
-  - [ ] Check if the server is running
-  - [ ] Check if the database is connected
+- [x] Start the project based on the technology stack defined in the job description
+- [x] Implement health check endpoint
+  - [x] Check if the server is running
+- [x] Logging layer
 - [ ] Implement authentication layer
-- [ ] Logging layer
 - [ ] Rate limit layer?
-- [ ] Implement /delivery/fee endpoint
+- [x] Implement /delivery/fee endpoint
   - [ ] Accept input parameters
     - [ ] It will be the same as the Bento API? Being a Gateway? Or will it be different?
-  - [ ] Call Bento API
-  - [ ] Extract response fields (originalFee, newFee, deliveryTime, distanceMeters and message)
-  - [ ] Transform data
-    - [ ] Convert fee to dollars and apply 13% margin
-  - [ ] Return structured response
+  - [x] Call Bento API
+  - [x] Extract response fields (originalFee, newFee, deliveryTime, distanceMeters and message)
+  - [x] Transform data
+    - [x] Convert fee to dollars and apply 13% margin
+  - [x] Return structured response
 
 ### TASK-3: Database
 
-- [ ] Set up a database
-- [ ] Adapt the API layer to use the database
-- [ ] Implement `/requests/last` endpoint
-  - [ ] Retrieve last 10 entries from database as an array
+- [x] Set up a database
+- [x] Adapt the API layer to use the database
+- [x] Update health check endpoint to verify database connection
+- [x] Implement `/requests/last` endpoint
+  - [x] Retrieve last 10 entries from database as an array
   - [ ] Should receive pagination parameters (page, limit)?
 
 ### TASK-4: Error Handling
@@ -63,9 +95,9 @@ Technical challenge for the backend developer position at Bento ([bento.kyc](htt
 
 ### TASK-5: Documentation
 
-- [ ] Write API documentation using Swagger/OpenAPI
-  - [ ] Document all endpoints
-  - [ ] Include request/response examples
+- [x] Write API documentation using Swagger/OpenAPI
+  - [x] Document all endpoints
+  - [x] Include request/response examples
 
 ### TASK-6: Testing
 
@@ -76,8 +108,9 @@ Technical challenge for the backend developer position at Bento ([bento.kyc](htt
 
 ### TASK-7: Deployment
 
-- [ ] Dockerize
-- [ ] CI pipeline
+- [x] Dockerize
+- [x] CI pipeline
+  - [x] Add husky pre-commit hooks
 - [ ] CD pipeline
 - [ ] Deploy the project
   - [ ] Personal VPS or Google environment?
@@ -121,3 +154,12 @@ This is the technology stack mentioned in the job description. It will be used a
 ### 2025-05-23
 
 - Finished the TASK-0: Planning the project with all the sections at README.md, comparing against the challenge instructions and defining the technology stack.
+
+### 2025-05-25
+
+- Explained the branch strategy at [#branch-strategy](#branch-strategy) section and started the `develop` branch.
+- Finished the TASK-1 documentation with the steps to retrieve the Bearer Token and UUID.
+- Started the TASK-2, setting up the project with NestJS and TypeScript and implemented many of the requirements, leaving the rest for after the database is set up.
+- Configured the firebase and firestore to be used in the project. Implemented the connection to the database and the health check endpoint. Implemented the logging layer after calculating the fee and the delivery time. Implemented the `/delivery/fee` endpoint and the `/requests/last` endpoint.
+- Implemented the swagger documentation for the API, creating the OpenAPI specification for the endpoints and their request/response examples.
+-

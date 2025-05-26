@@ -1,0 +1,11 @@
+services:
+  backend:
+    env_file: ./backend/.env
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./backend:/app
+    command: yarn start:dev
