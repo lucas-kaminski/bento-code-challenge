@@ -109,7 +109,8 @@ This project uses the following dependencies:
 ### TASK-7: Deployment
 
 - [x] Dockerize
-- [ ] CI pipeline
+- [x] CI pipeline
+  - [x] Add husky pre-commit hooks
 - [ ] CD pipeline
 - [ ] Deploy the project
   - [ ] Personal VPS or Google environment?
