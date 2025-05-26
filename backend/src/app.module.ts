@@ -5,6 +5,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { DeliveryModule } from './delivery/delivery.module';
 import { RequestsModule } from './requests/requests.module';
 import { UserSessionTokenMiddleware } from './common/middleware/user-session-token.middleware';
+import { JwtValidationMiddleware } from './common/middleware/jwt-validation.middleware';
 
 @Module({
   imports: [
@@ -50,6 +51,8 @@ import { UserSessionTokenMiddleware } from './common/middleware/user-session-tok
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(UserSessionTokenMiddleware).forRoutes('*');
+    consumer
+      .apply(UserSessionTokenMiddleware, JwtValidationMiddleware)
+      .forRoutes('*');
   }
 }

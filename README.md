@@ -65,7 +65,7 @@ This project uses the following dependencies:
 - [x] Implement health check endpoint
   - [x] Check if the server is running
 - [x] Logging layer
-- [ ] Implement authentication layer
+- [x] Implement authentication layer
 - [ ] Rate limit layer?
 - [x] Implement /delivery/fee endpoint
   - [ ] Accept input parameters
@@ -111,9 +111,10 @@ This project uses the following dependencies:
 - [x] Dockerize
 - [x] CI pipeline
   - [x] Add husky pre-commit hooks
-- [ ] CD pipeline
-- [ ] Deploy the project
-  - [ ] Personal VPS or Google environment?
+- [x] CD pipeline
+- [x] Deploy the project
+  - [x] Personal VPS or Google environment?
+    - [x] Used a personal VPS with Docker and Docker Compose, Nginx and Certbot for HTTPS [https://bento.lucas-kaminski.dev](https://bento.lucas-kaminski.dev)
 
 ### TASK-8: Review
 
@@ -162,4 +163,9 @@ This is the technology stack mentioned in the job description. It will be used a
 - Started the TASK-2, setting up the project with NestJS and TypeScript and implemented many of the requirements, leaving the rest for after the database is set up.
 - Configured the firebase and firestore to be used in the project. Implemented the connection to the database and the health check endpoint. Implemented the logging layer after calculating the fee and the delivery time. Implemented the `/delivery/fee` endpoint and the `/requests/last` endpoint.
 - Implemented the swagger documentation for the API, creating the OpenAPI specification for the endpoints and their request/response examples.
+- Created the Dockerfile and docker-compose.yml to run the project in a containerized environment.
+- Created the CI pipeline with GitHub Actions to run the tests and build the project. Added husky pre-commit hooks to run the tests before committing the code.
+- Created the CD pipeline to deploy the project to a personal VPS using Docker and Docker Compose.
+- Configured Nginx and Certbot to serve the project with HTTPS and a custom domain [https://bento.lucas-kaminski.dev](https://bento.lucas-kaminski.dev).
+- Implemented the JWT authentication layer to validate the decoded content of the Bearer Token.
 -
