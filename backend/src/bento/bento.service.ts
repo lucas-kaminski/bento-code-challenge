@@ -25,7 +25,6 @@ export class BentoService {
           },
         }),
       );
-      this.logger.debug('Bento API response', { response });
       const data = response.data as {
         fee: number;
         deliveryTime: number;

@@ -2,34 +2,54 @@ import {
   Controller,
   HttpCode,
   HttpStatus,
-  Get,
   Logger,
   Headers,
+  Req,
+  Get,
+  Param,
 } from '@nestjs/common';
 import { DeliveryService } from './delivery.service';
-import { BentoFeePayloadDto } from '../bento/dto/bento-fee-payload';
-import { DeliveryFeeResponseDto } from './dto/delivery-fee-response';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+import {
+  DeliveryFeeResponseDto,
+  DeliveryFeeResponseSwaggerDto,
+} from './dto/delivery-fee-response';
+import { RequestWithSessionToken } from '../common/middleware/user-session-token.middleware';
+
+@ApiTags('delivery')
+@ApiBearerAuth()
 @Controller('delivery')
 export class DeliveryController {
   constructor(private readonly deliveryService: DeliveryService) {}
 
   private readonly logger = new Logger(DeliveryController.name);
 
-  @Get('fee')
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Get delivery fee with margin',
+    description:
+      'Calculates the delivery fee with a 13% margin and stores the request in Firestore.',
+  })
+  @ApiResponse({ status: 200, type: DeliveryFeeResponseSwaggerDto })
+  @Get('fee/:user_id')
   async getDeliveryFee(
     @Headers('user-agent') userAgent: string | undefined,
+    @Req() req: RequestWithSessionToken,
+    @Param('user_id') userId: string,
   ): Promise<DeliveryFeeResponseDto> {
-    const token = process.env.USER_SESSION_TOKEN;
-    if (!token)
-      throw new Error('Missing USER_SESSION_TOKEN environment variable');
-
-    if (!process.env.USER_UUID) {
-      throw new Error('Missing USER_UUID environment variable');
+    if (!userId) {
+      throw new Error('Missing user_id in request params');
     }
 
-    const payload: BentoFeePayloadDto = {
+    const token = req.userSessionToken || '';
+
+    const payload = {
       addressFrom: {
         coordinates: {
           lat: 19.3331008,
@@ -46,7 +66,7 @@ export class DeliveryController {
         id: '8JbEqL0RTgHfRREvtSuO',
       },
       user: {
-        uuid: process.env.USER_UUID,
+        uuid: userId,
       },
     };
 

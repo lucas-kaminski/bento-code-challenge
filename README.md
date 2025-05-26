@@ -95,9 +95,9 @@ This project uses the following dependencies:
 
 ### TASK-5: Documentation
 
-- [ ] Write API documentation using Swagger/OpenAPI
-  - [ ] Document all endpoints
-  - [ ] Include request/response examples
+- [x] Write API documentation using Swagger/OpenAPI
+  - [x] Document all endpoints
+  - [x] Include request/response examples
 
 ### TASK-6: Testing
 
@@ -160,3 +160,5 @@ This is the technology stack mentioned in the job description. It will be used a
 - Finished the TASK-1 documentation with the steps to retrieve the Bearer Token and UUID.
 - Started the TASK-2, setting up the project with NestJS and TypeScript and implemented many of the requirements, leaving the rest for after the database is set up.
 - Configured the firebase and firestore to be used in the project. Implemented the connection to the database and the health check endpoint. Implemented the logging layer after calculating the fee and the delivery time. Implemented the `/delivery/fee` endpoint and the `/requests/last` endpoint.
+- Implemented the swagger documentation for the API, creating the OpenAPI specification for the endpoints and their request/response examples.
+-

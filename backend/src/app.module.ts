@@ -1,12 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { HealthModule } from './health/health.module';
 import { LoggerModule } from 'nestjs-pino';
 import { DeliveryModule } from './delivery/delivery.module';
-
 import { RequestsModule } from './requests/requests.module';
+import { UserSessionTokenMiddleware } from './common/middleware/user-session-token.middleware';
 
 @Module({
   imports: [
@@ -49,8 +47,9 @@ import { RequestsModule } from './requests/requests.module';
       },
     }),
   ],
-
-  controllers: [AppController],
-  providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(UserSessionTokenMiddleware).forRoutes('*');
+  }
+}

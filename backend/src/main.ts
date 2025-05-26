@@ -1,12 +1,43 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger } from 'nestjs-pino';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
   });
+
   app.useLogger(app.get(Logger));
+
+  const config = new DocumentBuilder()
+    .setTitle('Bento Code Challenge API')
+    .setDescription('Docs for Bento Code Challenge API')
+    .setVersion('1.0')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      description: 'Enter JWT Bearer token',
+    })
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config, {
+    extraModels: [],
+    deepScanRoutes: true,
+    operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
+  });
+  document.components = document.components || {};
+  document.components.securitySchemes =
+    document.components.securitySchemes || {};
+  document.components.securitySchemes.bearer = {
+    type: 'http',
+    scheme: 'bearer',
+    bearerFormat: 'JWT',
+  };
+  document.security = [{ bearer: [] }];
+
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(process.env.PORT ?? 3000);
 }
