@@ -6,15 +6,15 @@ It's necessary to set the environment variables for the project to run correctly
 
 1. Go to the [Bento sign in session website](https://bento.ky/sign-in?return=profile) and login with your credentials. For the example, I'll use the login with google button, but you can use any other method, it works the same way.
 
-   ![Login](images/login.png)
+   ![Login](content/login.png)
 
 2. After logging in, open the developer tools with F12 key and go to the "Network" tab. It will be clean, so configure the filters to show only the "XHR" requests, after that, press the "F5" key to refresh the page. This will show all the requests made by the page.
 
-   ![Network](images/network.png)
+   ![Network](content/network.png)
 
 3. Select one of the requests and go to the "Cookies" tab. For the example, I'll use the request to the "/orders" endpoint. Inside the section, you will find different keys with values, the one we looking for is the "idToken", copy this value and past on your .env file as the value of the USER_SESSION_TOKEN variable.
 
-   ![Cookies](images/cookies.png)
+   ![Cookies](content/cookies.png)
 
 ### Notes
 
